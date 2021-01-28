@@ -55,5 +55,4 @@ const generateTeam = team => {
         </ul>
     </div>
 </div>
-       
-
+    
