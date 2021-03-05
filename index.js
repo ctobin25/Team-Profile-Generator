@@ -4,6 +4,7 @@ const Manager = require("./lib/manager");
 const Intern = require("./lib/intern");
 const Engineer = require("./lib/engineer");
 
+
 const managerQuestions = [
     {
         type: 'input',
@@ -109,7 +110,7 @@ function buildTeam() {
             if (data.role === 'intern') {
                 createIntern();
             } else if (data.role === "engineer") {
-                console.log("engineer hereee")
+                
                 createEngineer();
                 
             } else {
@@ -138,7 +139,7 @@ function createIntern() {
 }
 
 function createEngineer() {
-    console.log('inside here')
+    
     inquirer
         .prompt(engineerQuestions)
         .then(data => {
@@ -163,7 +164,7 @@ function createEngineer() {
 var teamList = []
 
 
-
+//starter function
 function init() {
     inquirer
         .prompt(managerQuestions)
@@ -176,8 +177,9 @@ function init() {
         })
 }
 
+
 init();
-// create the team
+
 
 function createPage() {
 
@@ -202,7 +204,7 @@ return (
     <title>Document</title>
 </head>
 <body>
-    ${generateTeam(teamList)}
+    ${createTeam(teamList)}
 </body>
 </html>
     
@@ -212,20 +214,14 @@ return (
 }
 
 
-const generateTeam = teamList => {
+const createTeam = teamList => {
 
     console.log('hittt')
 
-    let main = '';
 
-    teamList.map(employee => {
-        console.log('emee',employee.getRole())
-
-        //conditional statment 
-    })
 
     //     // create the manager html
-    const generateManager = manager => {
+    const createManager = manager => {
         return `
         <div class="card employee-card">
         <div class="card-header">
@@ -236,7 +232,7 @@ const generateTeam = teamList => {
             <ul class="list-group">
                 <li class="list-group-item">ID: ${manager.getId()}</li>
                 <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}}">${manager.getEmail()}</a></li>
-                <li class="list-group-item">Office number: ${manager.getOfficeNumber()}}</li>
+                <li class="list-group-item">Office number: ${manager.getofficeNumber()}}</li>
             </ul>
         </div>
     </div>
@@ -245,7 +241,7 @@ const generateTeam = teamList => {
 
 
     //     // create the html for engineers
-    const generateEngineer = engineer => {
+    const createEngineer = engineer => {
         return `
         <div class="card employee-card">
     <div class="card-header">
@@ -256,7 +252,7 @@ const generateTeam = teamList => {
         <ul class="list-group">
             <li class="list-group-item">ID: ${engineer.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-            <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></li>
+            <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getgitHub()}" target="_blank" rel="noopener noreferrer">${engineer.getgitHub()}</a></li>
         </ul>
     </div>
 </div>
@@ -264,7 +260,7 @@ const generateTeam = teamList => {
     };
 
     //     // create the html for interns
-    const generateIntern = intern => {
+    const createIntern = intern => {
         return `
         <div class="card employee-card">
     <div class="card-header">
@@ -273,11 +269,35 @@ const generateTeam = teamList => {
     </div>
     <div class="card-body">
         <ul class="list-group">
-            <li class="list-group-item">ID: {{ id }}</li>
+            <li class="list-group-item">ID: ${intern.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
             <li class="list-group-item">School: ${intern.getSchool()}</li>
         </ul>
     </div>
 </div>`
     }
+
+    let main = '';
+
+    teamList.map(employee => {
+        //console.log('emee',employee.getRole())
+
+        if (employee.getRole() === "Intern"){
+            console.log("intern")
+            main += createIntern(employee);
+        }  else if (employee.getRole() === "Engineer"){
+            console.log("engineer")
+            main += createEngineer(employee);
+        } else {
+            console.log("manager")
+            main += createManager(employee);
+        }
+
+
+        
+    })
+
+    return main
+
+
 }
